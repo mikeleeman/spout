@@ -243,6 +243,11 @@ abstract class WorkbookManagerAbstract implements WorkbookManagerInterface
         }
     }
 
+    public function addReadOnlyPassword($password){
+        $currentWorksheet = $this->getCurrentWorksheet();
+        $this->worksheetManager->addReadOnlyPassword($currentWorksheet, $password);
+    }
+
     /**
      * @return bool Whether the current worksheet has reached the maximum number of rows per sheet.
      */
