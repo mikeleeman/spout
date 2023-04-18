@@ -215,7 +215,27 @@ abstract class WriterAbstract implements WriterInterface
     }
 
     public function addReadOnlyPassword($password){
-        $this->addReadOnlyPasswordMultisheet($password);
+
+        if($password=="" || !isset($password)){
+            return;
+        }
+
+        $len1 = strlen($password);
+
+        $val = 0;
+        foreach(array_reverse(str_split($password)) as $char1) {
+        
+        $val ^= ord($char1);
+        $val =  (($val >> 14) & 0x01) | (($val << 1) & 0x7fff);
+        }
+
+        $val ^= $len1;
+
+        $val ^= 0xCE4B;
+
+        $hashed_password =  dechex($val);
+
+        $this->addReadOnlyPasswordMultisheet($hashed_password);
     }
 
     /**
