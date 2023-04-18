@@ -213,6 +213,11 @@ abstract class WriterMultiSheetsAbstract extends WriterAbstract
         $this->workbookManager->addRowToCurrentWorksheet($row);
     }
 
+    protected function addReadOnlyPassword($password)
+    {
+        $this->workbookManager->addReadOnlyPassword($password);
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -75,6 +75,8 @@ abstract class WriterAbstract implements WriterInterface
      */
     abstract protected function addRowToWriter(Row $row);
 
+    abstract protected function addReadOnlyPassword($password);
+
     /**
      * Closes the streamer, preventing any additional writing.
      *
