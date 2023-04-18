@@ -45,6 +45,8 @@ interface WorksheetManagerInterface
      */
     public function addRow(Worksheet $worksheet, Row $row);
 
+    public function addReadOnlyPassword(Worksheet $worksheet, $password);
+
     /**
      * Prepares the worksheet to accept data
      *

@@ -151,6 +151,14 @@ class WorksheetManager implements WorksheetManagerInterface
         $worksheet->setLastWrittenRowIndex($lastWrittenRowIndex + 1);
     }
 
+    public function addReadOnlyPassword(Worksheet $worksheet, $password){
+        $data = '<sheetProtection sheet="true" password="'.$password.'" objects="true" scenarios="true" />';
+        $wasWriteSuccessful = \fwrite($worksheet->getFilePointer(), $data);
+        if ($wasWriteSuccessful === false) {
+            throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
+        }
+    }
+
     /**
      * Applies styles to the given style, merging the cell's style with its row's style
      *
