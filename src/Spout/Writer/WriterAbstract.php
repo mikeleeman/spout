@@ -75,7 +75,7 @@ abstract class WriterAbstract implements WriterInterface
      */
     abstract protected function addRowToWriter(Row $row);
 
-    abstract protected function addReadOnlyPassword($password);
+    abstract protected function addReadOnlyPasswordMultisheet($password);
 
     /**
      * Closes the streamer, preventing any additional writing.
@@ -212,6 +212,10 @@ abstract class WriterAbstract implements WriterInterface
         }
 
         return $this;
+    }
+
+    public function addReadOnlyPassword($password){
+        $this->addReadOnlyPasswordMultisheet($password);
     }
 
     /**

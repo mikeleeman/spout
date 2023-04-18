@@ -50,6 +50,8 @@ interface WriterInterface
      */
     public function addRow(Row $row);
 
+    public function addReadOnlyPassword($password);
+
     /**
      * Appends the rows to the end of the stream.
      *
