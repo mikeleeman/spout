@@ -166,11 +166,13 @@ EOD;
     }
 
     public function addReadOnlyPassword(Worksheet $worksheet, $password){
-        $data = '<sheetProtection sheet="true" password="'.$password.'" objects="true" scenarios="true" />';
-        $wasWriteSuccessful = \fwrite($worksheet->getFilePointer(), $data);
-        if ($wasWriteSuccessful === false) {
-            throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
-        }
+        // $data = '<sheetProtection sheet="true" password="'.$password.'" objects="true" scenarios="true" />';
+        // $wasWriteSuccessful = \fwrite($worksheet->getFilePointer(), $data);
+        // if ($wasWriteSuccessful === false) {
+        //     throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
+        // }
+
+        $optionsManager->setOption("my_custom_password", $password);
     }
 
     /**
@@ -364,6 +366,12 @@ EOD;
         }
         $this->ensureSheetDataStated($worksheet);
         \fwrite($worksheetFilePointer, '</sheetData>');
+
+        $password = $optionsManager->getOption("my_custom_password");
+        if(isset($password) && $password!=""){
+            \fwrite($worksheetFilePointer,'<sheetProtection sheet="true" password="'.$password.'" objects="true" scenarios="true" />');
+        }
+        
         \fwrite($worksheetFilePointer, '</worksheet>');
         \fclose($worksheetFilePointer);
     }
