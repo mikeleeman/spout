@@ -175,7 +175,7 @@ EOD;
         //     throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
         // }
 
-        $my_options_manager->setOption("my_custom_password", $password);
+        $this->my_options_manager->setOption("my_custom_password", $password);
     }
 
     /**
