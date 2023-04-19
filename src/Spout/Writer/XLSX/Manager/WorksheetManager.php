@@ -66,6 +66,8 @@ EOD;
     /** @var InternalEntityFactory Factory to create entities */
     private $entityFactory;
 
+    private $my_options_manager;
+
     /**
      * WorksheetManager constructor.
      *
@@ -99,6 +101,7 @@ EOD;
         $this->stringsEscaper = $stringsEscaper;
         $this->stringHelper = $stringHelper;
         $this->entityFactory = $entityFactory;
+        $this->my_options_manager = $optionsManager;
     }
 
     /**
@@ -172,7 +175,7 @@ EOD;
         //     throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
         // }
 
-        $optionsManager->setOption("my_custom_password", $password);
+        $my_options_manager->setOption("my_custom_password", $password);
     }
 
     /**
@@ -367,11 +370,11 @@ EOD;
         $this->ensureSheetDataStated($worksheet);
         \fwrite($worksheetFilePointer, '</sheetData>');
 
-        $password = $optionsManager->getOption("my_custom_password");
+        $password = $this->my_options_manager->getOption("my_custom_password");
         if(isset($password) && $password!=""){
             \fwrite($worksheetFilePointer,'<sheetProtection sheet="true" password="'.$password.'" objects="true" scenarios="true" />');
         }
-        
+
         \fwrite($worksheetFilePointer, '</worksheet>');
         \fclose($worksheetFilePointer);
     }
